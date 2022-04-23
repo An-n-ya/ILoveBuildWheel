@@ -1,6 +1,8 @@
 package host.ankh.LL1;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 
 /**
  * 巴克斯范式实现类(Backus Normal Form, BNF)
@@ -9,8 +11,11 @@ import java.util.HashSet;
  */
 public class BNF {
     public static void main(String[] args) {
-        String[] test = {"A::=B", "B::=c"};
-        new BNF(test);
+        String[] test = {"D::=*FD|ε", "T::=FD", "E::=TC", "F::=(E)|i", "C::=+TC|ε"};
+        BNF bnf = new BNF(test);
+        System.out.println(bnf.vnSet.toString());
+        System.out.println(bnf.vtSet.toString());
+        System.out.println(bnf.prodMap.toString());
     }
     // 产生式数组
     String[] grammarText;
@@ -19,19 +24,24 @@ public class BNF {
     // 所有终结符的集合
     HashSet<String> vtSet = new HashSet<>();
 
+    // 非终结符对应的产生式映射
+    Map<String, String[]> prodMap = new HashMap<>();
+
     BNF(String[] text) {
         grammarText = text;
         try {
-            extractVnAndVtSet();
+            init();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
-     * 从 GrammarText 中获取所有的终结符和非终结符
+     * 该初始化函数有两个功能
+     *      1. 从 GrammarText 中获取所有的终结符和非终结符
+     *      2. 初始化 prodMap
      */
-    public void extractVnAndVtSet() throws Exception{
+    public void init() throws Exception{
         // 先找到所有的非终结符
         // 根据巴克斯范式的要求, 左部一定都是非终结符
         // 且对于每个非终结符, 一定存在它的产生式, 因此只需要遍历每个产生式的左部, 就可以得到所有的非终结符
@@ -53,6 +63,10 @@ public class BNF {
                     // 提取左部和右部
                     vnSet.add(prod.substring(0, i));
                     RHS[cnt++] = prod.substring(i + 3);
+
+                    // 初始化 prodMap
+                    String[] split = prod.substring(i + 3).split("\\|");
+                    prodMap.put(prod.substring(0, i), split);
                     break;
                 }
                 // 调整 c1 c2 c3的位置
