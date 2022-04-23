@@ -1,5 +1,6 @@
 package host.ankh.LL1;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -12,7 +13,7 @@ import java.util.Map;
 public class BNF {
     public static void main(String[] args) {
         String[] test = {"D::=*FD|ε", "T::=FD", "E::=TC", "F::=(E)|i", "C::=+TC|ε"};
-        BNF bnf = new BNF(test);
+        BNF bnf = new BNF(test, "E");
         System.out.println(bnf.vnSet.toString());
         System.out.println(bnf.vtSet.toString());
         System.out.println(bnf.prodMap.toString());
@@ -24,11 +25,24 @@ public class BNF {
     // 所有终结符的集合
     HashSet<String> vtSet = new HashSet<>();
 
+    // 文法开始符号
+    String start;
+
     // 非终结符对应的产生式映射
     Map<String, String[]> prodMap = new HashMap<>();
 
-    BNF(String[] text) {
+    @Override
+    public String toString() {
+        return "BNF{" +
+                "grammarText=" + Arrays.toString(grammarText) +
+                ", vnSet=" + vnSet +
+                ", vtSet=" + vtSet +
+                '}';
+    }
+
+    BNF(String[] text, String start) {
         grammarText = text;
+        this.start = start;
         try {
             init();
         } catch (Exception e) {
