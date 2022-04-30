@@ -1,4 +1,4 @@
-package host.ankh.LL1;
+package host.ankh;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -21,15 +21,15 @@ public class BNF {
     // 产生式数组
     String[] grammarText;
     // 所有非终结符的集合
-    HashSet<String> vnSet = new HashSet<>();
+    public HashSet<String> vnSet = new HashSet<>();
     // 所有终结符的集合
-    HashSet<String> vtSet = new HashSet<>();
+    public HashSet<String> vtSet = new HashSet<>();
 
     // 文法开始符号
-    String start;
+    public String start;
 
     // 非终结符对应的产生式映射
-    Map<String, String[]> prodMap = new HashMap<>();
+    public Map<String, String[]> prodMap = new HashMap<>();
 
     @Override
     public String toString() {
@@ -40,7 +40,7 @@ public class BNF {
                 '}';
     }
 
-    BNF(String[] text, String start) {
+    public BNF(String[] text, String start) {
         grammarText = text;
         this.start = start;
         try {

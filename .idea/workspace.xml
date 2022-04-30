@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9dd5885b-76c6-403c-bc9a-3da64c5cc23a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/Compilers/src/host/ankh/LL1/BNF.java" beforeDir="false" afterPath="$PROJECT_DIR$/Compilers/src/host/ankh/LL1/BNF.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Compilers/src/host/ankh/OperatorGrammar/OG.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Compilers/src/host/ankh/LL1/BNF.java" beforeDir="false" afterPath="$PROJECT_DIR$/Compilers/src/host/ankh/BNF.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Compilers/src/host/ankh/LL1/LL1.java" beforeDir="false" afterPath="$PROJECT_DIR$/Compilers/src/host/ankh/LL1/LL1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilers/host/ankh/LL1/BNF.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilers/host/ankh/LL1/BNF.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilers/host/ankh/LL1/BNF.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Compilers/host/ankh/LL1/LL1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilers/host/ankh/LL1/LL1.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -48,13 +49,13 @@
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="File.Encoding" />
   </component>
-  <component name="RunManager" selected="Application.LL1">
+  <component name="RunManager" selected="Application.OG">
     <configuration name="BNF" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="host.ankh.LL1.BNF" />
+      <option name="MAIN_CLASS_NAME" value="host.ankh.BNF" />
       <module name="Compilers" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="host.ankh.LL1.*" />
+          <option name="PATTERN" value="host.ankh.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -67,7 +68,20 @@
       <module name="Compilers" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="host.ankh.LL1.*" />
+          <option name="PATTERN" value="host.ankh.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="OG" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="host.ankh.OperatorGrammar.OG" />
+      <module name="Compilers" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="host.ankh.OperatorGrammar.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -90,6 +104,7 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.OG" />
         <item itemvalue="Application.LL1" />
         <item itemvalue="Application.BNF" />
         <item itemvalue="Application.TestArrayList" />
@@ -105,7 +120,8 @@
       <option name="presentableId" value="Default" />
       <updated>1649938125590</updated>
       <workItem from="1649938125590" duration="3751000" />
-      <workItem from="1650627803391" duration="21294000" />
+      <workItem from="1650627803391" duration="21571000" />
+      <workItem from="1651320531679" duration="5155000" />
     </task>
     <servers />
   </component>
@@ -128,8 +144,23 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Compilers/src/host/ankh/LL1/LL1.java</url>
-          <line>112</line>
+          <line>114</line>
           <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Compilers/src/host/ankh/OperatorGrammar/OG.java</url>
+          <line>111</line>
+          <option name="timeStamp" value="22" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Compilers/src/host/ankh/OperatorGrammar/OG.java</url>
+          <line>127</line>
+          <option name="timeStamp" value="23" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/Compilers/src/host/ankh/OperatorGrammar/OG.java</url>
+          <line>94</line>
+          <option name="timeStamp" value="24" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
