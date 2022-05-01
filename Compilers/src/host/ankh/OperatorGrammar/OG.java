@@ -10,18 +10,21 @@ import java.util.*;
  */
 public class OG {
     public static void main(String[] args) {
-        String[] test = {"E::=E+T|T", "T::=T*F|F", "F::=P^F|P", "P::=(E)|i"};
+        String[] test = {"E::=E+T|T", "T::=T*F|F", "F::=P^F|P", "P::=(E)|i", "S::=#E#"};
         OG og = new OG(test);
         System.out.println(og);
+        boolean res = og.analyze("(i+i)*i#");
+        System.out.println("res = " + res);
     }
 
     private Map<String, Boolean[]> map = new HashMap<>();
     private BNF bnf;
     private Stack<String> stack1 = new Stack<>();
     private Stack<String> stack2 = new Stack<>();
+    private Map<String, String> priorityMap = new HashMap<>();
 
     OG(String[] text) {
-        bnf = new BNF(text, "E");
+        bnf = new BNF(text, "S");
 
         // 初始化map
         for (String vn : bnf.vnSet) {
@@ -30,25 +33,111 @@ public class OG {
             }
         }
 
+        // 初始化 priorityMap 为 #
+        for (String vt : bnf.vtSet) {
+            for (String vvt : bnf.vtSet) {
+                priorityMap.put(vt + "-" + vvt, " ");
+            }
+        }
+
         init();
+
+        createPriorityTable();
+    }
+
+    private void createPriorityTable() {
+        for (String vn : bnf.vnSet) {
+            String[] prods = bnf.prodMap.get(vn);
+            for (String prod : prods) {
+                for (int i = 0; i < prod.length() - 1; i++) {
+                    String first = String.valueOf(prod.charAt(i));
+                    String second = String.valueOf(prod.charAt(i + 1));
+                    if (i < prod.length() - 2) {
+                        String last = String.valueOf(prod.charAt(i + 2));
+                        case2(first, second, last);
+                    }
+                    case1(first, second);
+                    case3(first, second);
+                    case4(first, second);
+                }
+            }
+        }
+    }
+
+    /**
+     * 如果x_i 和 x_i+1 都是终结符
+     * @param first
+     * @param last
+     */
+    private void case1(String first, String last) {
+        if (bnf.vtSet.contains(first) && bnf.vtSet.contains(last)) {
+            priorityMap.put(first + "-" + last, "=");
+        }
+    }
+
+    /**
+     * 如果first和last都是终结符, 但是mid是非终结符
+     * @param first
+     * @param mid
+     * @param last
+     */
+    private void case2(String first, String mid, String last) {
+        if (bnf.vtSet.contains(first) && bnf.vnSet.contains(mid) && bnf.vtSet.contains(last)) {
+            priorityMap.put(first + "-" + last, "=");
+        }
+    }
+
+    /**
+     * 如果first是终结符, 而last是非终结符
+     * @param first
+     * @param last
+     */
+    private void case3(String first, String last) {
+        if(!(bnf.vtSet.contains(first) && bnf.vnSet.contains(last))) return;
+        for(String vt : bnf.vtSet) {
+            Boolean[] bools = map.get(last + "-" + vt);
+            if (bools[0]) {
+                priorityMap.put(first + "-" + vt, "<");
+            }
+        }
+    }
+
+    /**
+     * 如果last是终结符, 而frist是非终结符
+     * @param first
+     * @param last
+     */
+    private void case4(String first, String last) {
+        if(!(bnf.vnSet.contains(first) && bnf.vtSet.contains(last))) return;
+        for (String vt : bnf.vtSet) {
+            Boolean[] bools = map.get(first + "-" + vt);
+            if (bools[1]) {
+                priorityMap.put(vt + "-" + last, ">");
+            }
+        }
     }
 
     @Override
     public String toString() {
         StringBuilder sbf = new StringBuilder();
         StringBuilder sbl = new StringBuilder();
+        StringBuilder sbp = new StringBuilder();
 
         sbf.append("FIRSTVT:\n");
         sbf.append("\t");
         sbl.append("LASTVT:\n");
         sbl.append("\t");
+        sbp.append("PriorityTable:\n");
+        sbp.append("\t");
         for (String vt : bnf.vtSet) {
             // 打印表头
             sbf.append(vt + "\t");
             sbl.append(vt + "\t");
+            sbp.append(vt + "\t");
         }
         sbf.append("\n");
         sbl.append("\n");
+        sbp.append("\n");
 
         for (String vn : bnf.vnSet) {
             sbf.append(vn + "\t");
@@ -62,7 +151,16 @@ public class OG {
             sbl.append("\n");
         }
 
-        return sbl.toString() + sbf.toString();
+        for (String vt : bnf.vtSet) {
+            sbp.append(vt + "\t");
+            for (String vvt : bnf.vtSet) {
+                String s = priorityMap.get(vt + "-" + vvt);
+                sbp.append(s + "\t");
+            }
+            sbp.append("\n");
+        }
+
+        return sbl.toString() + sbf.toString() + sbp.toString();
     }
 
     private void init() {
@@ -149,5 +247,106 @@ public class OG {
         }
     }
 
+    public boolean analyze(String in) {
+        ArrayList<String> s = new ArrayList<>();
+        s.add("#");
+        int k = 0;
+        int j;
+        int t = 0;
+        while (true) {
+            String c = String.valueOf(in.charAt(t++));
+            if (bnf.vtSet.contains(s.get(k))) {
+                j = k;
+            } else {
+                j = k - 1;
+            }
+            
+            while (biggerThan(s.get(j), c)) {
+                String Q;
+                do {
+                    Q = s.get(j);
+                    if (bnf.vtSet.contains(s.get(j - 1))) {
+                        j = j - 1;
+                    } else {
+                        j = j - 2;
+                    }
+                } while(!(smallerThan(s.get(j), Q)));
+                
+                // reduce
+                reduce(j + 1, k, s);
+
+                k = j + 1;
+            }
+
+            if (smallerThan(s.get(j), c) || equalTo(s.get(j), c)) {
+                k = k + 1;
+                s.add(c);
+            } else {
+                System.out.println("错误!");
+            }
+            if (c.equals("#")) {
+                break;
+            }
+        }
+        return true;
+    }
+    
+    private void reduce(int start, int end, ArrayList<String> s) {
+        List<String> sub = s.subList(start, end + 1);
+        boolean stop = false;
+        for(String vn : bnf.vnSet) {
+            String[] prods = bnf.prodMap.get(vn);
+            for (String prod : prods) {
+                boolean same = true;
+                if (sub.size() != prod.length()) {
+                    continue;
+                }
+                for (int i = 0, len = prod.length(); i < len; i++) {
+                    String c1 = String.valueOf(prod.charAt(i));
+                    String c2 = sub.get(i);
+                    if ((bnf.vnSet.contains(c1) && bnf.vnSet.contains(c2)) || (bnf.vtSet.contains(c1) && bnf.vtSet.contains(c2) && c1.equals(c2))) {
+                        continue;
+                    } else {
+                        same = false;
+                        break;
+                    }
+                }
+                // 对比每个产生式
+                if (same) {
+                    sub.clear();
+                    s.add(start, vn);
+                    stop = true;
+                    break;
+                }
+            }
+            if (stop) {
+                break;
+            }
+        }
+    }
+    
+    private boolean biggerThan(String a, String b) {
+        if (priorityMap.get(a + "-" + b) == ">") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    private boolean smallerThan(String a, String b) {
+        if (priorityMap.get(a + "-" + b) == "<") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean equalTo(String a, String b) {
+        if (priorityMap.get(a + "-" + b) == "=") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
 
 }

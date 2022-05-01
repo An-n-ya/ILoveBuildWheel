@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="9dd5885b-76c6-403c-bc9a-3da64c5cc23a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Compilers/src/host/ankh/OperatorGrammar/OG.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compilers/src/host/ankh/LL1/BNF.java" beforeDir="false" afterPath="$PROJECT_DIR$/Compilers/src/host/ankh/BNF.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Compilers/src/host/ankh/LL1/LL1.java" beforeDir="false" afterPath="$PROJECT_DIR$/Compilers/src/host/ankh/LL1/LL1.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilers/host/ankh/LL1/BNF.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Compilers/host/ankh/LL1/LL1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilers/host/ankh/LL1/LL1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Compilers/src/host/ankh/OperatorGrammar/OG.java" beforeDir="false" afterPath="$PROJECT_DIR$/Compilers/src/host/ankh/OperatorGrammar/OG.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Compilers/host/ankh/OperatorGrammar/OG.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Compilers/host/ankh/OperatorGrammar/OG.class" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +118,7 @@
       <updated>1649938125590</updated>
       <workItem from="1649938125590" duration="3751000" />
       <workItem from="1650627803391" duration="21571000" />
-      <workItem from="1651320531679" duration="5155000" />
+      <workItem from="1651320531679" duration="13917000" />
     </task>
     <servers />
   </component>
@@ -149,18 +146,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Compilers/src/host/ankh/OperatorGrammar/OG.java</url>
-          <line>111</line>
-          <option name="timeStamp" value="22" />
+          <line>293</line>
+          <option name="timeStamp" value="28" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/Compilers/src/host/ankh/OperatorGrammar/OG.java</url>
-          <line>127</line>
-          <option name="timeStamp" value="23" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/Compilers/src/host/ankh/OperatorGrammar/OG.java</url>
-          <line>94</line>
-          <option name="timeStamp" value="24" />
+          <line>285</line>
+          <option name="timeStamp" value="31" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
